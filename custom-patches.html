@@ -8,8 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -30,33 +29,25 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime&display=swap');
-
-        [x-cloak] {
-            display: none !important;
-        }
-
+        [x-cloak] { display: none !important; }
         .retro-bg {
             background-color: #F5E6D3;
             background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e67e22' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-
         .sketch-border {
             border: 2px solid #2C3E50;
             box-shadow: 4px 4px 0 #2C3E50;
         }
-
         .retro-card {
             background-color: #F5E6D3;
             border: 2px solid #2C3E50;
             box-shadow: 8px 8px 0 #2C3E50;
             transition: all 0.3s ease;
         }
-
         .retro-card:hover {
             transform: translateY(-5px);
             box-shadow: 12px 12px 0 #2C3E50;
         }
-
         .retro-button {
             background-color: #E74C3C;
             color: #F5E6D3;
@@ -64,7 +55,6 @@
             box-shadow: 4px 4px 0 #2C3E50;
             transition: all 0.3s ease;
         }
-
         .retro-button:hover {
             box-shadow: 2px 2px 0 #2C3E50;
             transform: translate(2px, 2px);
@@ -103,7 +93,8 @@
                         <h3 class="text-2xl font-bold mb-2 ">Embroidered</h3>
                         <p class="text-sm">Classic, textured, and durable</p>
                     </button>
-                    <button @click="activeType = 'woven'" class="p-6 rounded-lg retro-card transition-all duration-300"
+                    <button @click="activeType = 'woven'" 
+                        class="p-6 rounded-lg retro-card transition-all duration-300"
                         :class="{ 'bg-primary text-cream': activeType === 'woven', 'bg-cream text-primary': activeType !== 'woven' }">
                         <h3 class="text-2xl font-bold mb-2 ">Woven</h3>
                         <p class="text-sm">Smooth, detailed, and flexible</p>
@@ -119,60 +110,37 @@
                     x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 transform scale-95"
                     x-transition:enter-end="opacity-100 transform scale-100">
-                    <div class="flex flex-col md:flex-row items-center">
-                        <div class="md:w-1/2 pr-8">
-                            <div x-show="activeType === 'embroidered'">
-                                <h3 class="text-3xl font-bold mb-4 text-primary ">Embroidered Patches</h3>
-                                <p class="mb-4">Our embroidered patches offer a classic, high-quality look with raised
-                                    stitching that adds depth and texture. Perfect for uniforms, jackets, and bags.</p>
-                                <ul class="list-disc list-inside mb-4">
-                                    <li>Durable and long-lasting</li>
-                                    <li>Great for simple to moderately complex designs</li>
-                                    <li>Available in various thread colors</li>
-                                </ul>
-                            </div>
-                            <div x-show="activeType === 'woven'">
-                                <h3 class="text-3xl font-bold mb-4 text-primary ">Woven Patches</h3>
-                                <p class="mb-4">Woven patches offer a sleek, professional appearance with intricate
-                                    detailing. Ideal for designs with fine lines and small text.</p>
-                                <ul class="list-disc list-inside mb-4">
-                                    <li>Smooth texture with no raised elements</li>
-                                    <li>Excellent for complex designs and gradients</li>
-                                    <li>Thinner and more flexible than embroidered patches</li>
-                                </ul>
-                            </div>
-                            <div x-show="activeType === 'printed'">
-                                <h3 class="text-3xl font-bold mb-4 text-primary ">Printed Patches</h3>
-                                <p class="mb-4">Printed patches offer unlimited color options and photo-realistic
-                                    quality. Perfect for complex designs, photographs, and full-color logos.</p>
-                                <ul class="list-disc list-inside mb-4">
-                                    <li>Vibrant, full-color designs</li>
-                                    <li>Ideal for photorealistic images</li>
-                                    <li>Quick production time</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2 mt-8 md:mt-0">
-                            <div x-show="activeType === 'embroidered'" class="patch-preview-container">
-                                <img src="https://example.com/embroidered-patch.jpg" alt="Embroidered Patch Example"
-                                    class="w-full h-auto rounded-lg shadow-lg patch-preview">
-                                <p class="text-sm text-center mt-2">Close-up of an embroidered patch showing texture and
-                                    thread detail</p>
-                            </div>
-                            <div x-show="activeType === 'woven'" class="patch-preview-container">
-                                <img src="https://example.com/woven-patch.jpg" alt="Woven Patch Example"
-                                    class="w-full h-auto rounded-lg shadow-lg patch-preview">
-                                <p class="text-sm text-center mt-2">Woven patch displaying intricate design and smooth
-                                    finish</p>
-                            </div>
-                            <div x-show="activeType === 'printed'" class="patch-preview-container">
-                                <img src="https://example.com/printed-patch.jpg" alt="Printed Patch Example"
-                                    class="w-full h-auto rounded-lg shadow-lg patch-preview">
-                                <p class="text-sm text-center mt-2">Vibrant printed patch showcasing photo-realistic
-                                    quality</p>
-                            </div>
-                        </div>
+                    <div x-show="activeType === 'embroidered'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary ">Embroidered Patches</h3>
+                        <p class="mb-4">Our embroidered patches offer a classic, high-quality look with raised stitching that adds depth and texture. Perfect for uniforms, jackets, and bags.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Durable and long-lasting</li>
+                            <li>Great for simple to moderately complex designs</li>
+                            <li>Available in various thread colors</li>
+                        </ul>
                     </div>
+                    <div x-show="activeType === 'woven'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary ">Woven Patches</h3>
+                        <p class="mb-4">Woven patches offer a sleek, professional appearance with intricate detailing. Ideal for designs with fine lines and small text.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Smooth texture with no raised elements</li>
+                            <li>Excellent for complex designs and gradients</li>
+                            <li>Thinner and more flexible than embroidered patches</li>
+                        </ul>
+                    </div>
+                    <div x-show="activeType === 'printed'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary ">Printed Patches</h3>
+                        <p class="mb-4">Printed patches offer unlimited color options and photo-realistic quality. Perfect for complex designs, photographs, and full-color logos.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Vibrant, full-color designs</li>
+                            <li>Ideal for photorealistic images</li>
+                            <li>Quick production time</li>
+                        </ul>
+                    </div>
+                    <a :href="'/patch-types/' + activeType" 
+                       class="inline-block px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-accent transition-colors duration-300 retro-button">
+                        Learn More About <span x-text="activeType.charAt(0).toUpperCase() + activeType.slice(1)"></span> Patches
+                    </a>
                 </div>
             </div>
         </section>
@@ -214,6 +182,149 @@
             </div>
         </section>
 
+        <!-- Popular Applications Section -->
+        <section class="py-24 px-4 bg-cream">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-primary  text-center">Popular Applications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Corporate Branding</h3>
+                        <p class="text-sm mb-4">Elevate your company's image with custom patches on uniforms and promotional items.</p>
+                        <a href="/patch-types/corporate-branding" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Sports Teams</h3>
+                        <p class="text-sm mb-4">Create team spirit and unity with custom patches for jerseys, bags, and fan merchandise.</p>
+                        <a href="/patch-types/sports-teams" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Fashion Accessories</h3>
+                        <p class="text-sm mb-4">Add a unique touch to jackets, bags, and hats with trendy custom patches.</p>
+                        <a href="/patch-types/fashion-accessories" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Military & Law Enforcement</h3>
+                        <p class="text-sm mb-4">Honor service and identify units with high-quality, durable custom patches.</p>
+                        <a href="/patch-types/military-law-enforcement" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Travel & Adventure</h3>
+                        <p class="text-sm mb-4">Commemorate trips and achievements with custom patches for backpacks and travel gear.</p>
+                        <a href="/patch-types/travel-adventure" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="sketch-border p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                        <h3 class="text-2xl font-bold mb-3 ">Educational Institutions</h3>
+                        <p class="text-sm mb-4">Showcase school pride and achievements with custom patches for uniforms and memorabilia.</p>
+                        <a href="/patch-types/educational-institutions" class="retro-button inline-block px-4 py-2 rounded-full text-sm font-bold hover:bg-accent transition-colors duration-300">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- FAQs Section -->
+        <section class="py-24 px-4 bg-cream" x-data="{ activeQuestion: null }">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-primary  text-center">Frequently Asked Questions</h2>
+                <div class="space-y-6">
+                    <div class="retro-card bg-white text-primary rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
+                         :class="{ 'shadow-lg': activeQuestion === 1 }">
+                        <button @click="activeQuestion = activeQuestion === 1 ? null : 1" 
+                                class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                            <span class="font-bold text-xl pr-4">What's the minimum order quantity?</span>
+                            <svg class="w-6 h-6 text-secondary transform transition-transform duration-300" 
+                                 :class="{ 'rotate-180': activeQuestion === 1 }" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="activeQuestion === 1" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                             x-transition:enter-end="opacity-100 transform translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 transform translate-y-0" 
+                             x-transition:leave-end="opacity-0 transform -translate-y-2" 
+                             class="p-6 pt-0 text-gray-600">
+                            <p>Our minimum order quantity is 50 patches. This allows us to provide high-quality custom patches at a reasonable price while ensuring efficiency in our production process.</p>
+                        </div>
+                    </div>
+
+                    <div class="retro-card bg-white text-primary rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
+                         :class="{ 'shadow-lg': activeQuestion === 2 }">
+                        <button @click="activeQuestion = activeQuestion === 2 ? null : 2" 
+                                class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                            <span class="font-bold text-xl pr-4">How long does production take?</span>
+                            <svg class="w-6 h-6 text-secondary transform transition-transform duration-300" 
+                                 :class="{ 'rotate-180': activeQuestion === 2 }" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="activeQuestion === 2" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                             x-transition:enter-end="opacity-100 transform translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 transform translate-y-0" 
+                             x-transition:leave-end="opacity-0 transform -translate-y-2" 
+                             class="p-6 pt-0 text-gray-600">
+                            <p>Production time varies depending on the complexity and quantity of your order. Typically, it takes 2-3 weeks from design approval to shipping. For rush orders, please contact our customer service team.</p>
+                        </div>
+                    </div>
+
+                    <div class="retro-card bg-white text-primary rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
+                         :class="{ 'shadow-lg': activeQuestion === 3 }">
+                        <button @click="activeQuestion = activeQuestion === 3 ? null : 3" 
+                                class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                            <span class="font-bold text-xl pr-4">What attachment options are available?</span>
+                            <svg class="w-6 h-6 text-secondary transform transition-transform duration-300" 
+                                 :class="{ 'rotate-180': activeQuestion === 3 }" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div x-show="activeQuestion === 3" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 transform -translate-y-2" 
+                             x-transition:enter-end="opacity-100 transform translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 transform translate-y-0" 
+                             x-transition:leave-end="opacity-0 transform -translate-y-2" 
+                             class="p-6 pt-0 text-gray-600">
+                            <p>We offer various attachment options to suit your needs:</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Iron-on backing</li>
+                                <li>Sew-on edges</li>
+                                <li>Velcro backing</li>
+                                <li>Adhesive backing</li>
+                                <li>Magnetic backing</li>
+                            </ul>
+                            <p class="mt-2">Our team can help you choose the best option for your specific application.</p>
+                        </div>
+                    </div>
+
+                    <!-- Add more FAQ items as needed -->
+
+                </div>
+            </div>
+        </section>
+
         <!-- Call to Action -->
         <section id="design-now" class="py-24 px-4 bg-primary text-cream sketch-border">
             <div class="container mx-auto max-w-6xl text-center">
@@ -240,7 +351,6 @@
             </svg>
         </a>
     </div>
-
 
     <!-- Footer (assumed to be consistent across pages) -->
 
