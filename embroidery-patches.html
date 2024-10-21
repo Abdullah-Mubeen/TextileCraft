@@ -50,7 +50,7 @@
     <!-- Header (Include your header here) -->
 
     <main class="container mx-auto px-4 py-12" x-data="patchesApp()">
-        <h1 class="text-5xl font-display mb-12 text-center text-primary">Embroidered Patches</h1>
+        <h1 class="text-5xl  mb-12 text-center text-primary">Embroidered Patches</h1>
 
         <div class="retro-card p-8 mb-12">
             <nav class="flex flex-wrap justify-center mb-8">
@@ -61,7 +61,7 @@
 
             <div x-show="activeTab === 'about'" x-transition>
                 <section class="mb-12">
-                    <h2 class="text-3xl font-display mb-6">What are Embroidered Patches?</h2>
+                    <h2 class="text-3xl  mb-6">What are Embroidered Patches?</h2>
                     <div class="flex flex-col md:flex-row items-center">
                         <p class="mb-6 md:mr-6 md:w-1/2">Embroidered patches are decorative fabric pieces with designs stitched directly onto them using thread. They add a personalized touch to clothing, bags, and more!</p>
                         <img src="/path/to/embroidered-patch-example.jpg" alt="Example of an embroidered patch" class="rounded-lg sketch-border md:w-1/2">
@@ -69,7 +69,7 @@
                 </section>
 
                 <section class="mb-12">
-                    <h2 class="text-3xl font-display mb-6">Benefits</h2>
+                    <h2 class="text-3xl  mb-6">Benefits</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <template x-for="benefit in benefits" :key="benefit">
                             <div class="flex items-center">
@@ -81,11 +81,11 @@
                 </section>
 
                 <section>
-                    <h2 class="text-3xl font-display mb-6">The Magic Process</h2>
+                    <h2 class="text-3xl  mb-6">The Magic Process</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <template x-for="(step, index) in process" :key="index">
                             <div class="retro-card p-4">
-                                <h3 class="font-display text-xl mb-2" x-text="`${index + 1}. ${step.title}`"></h3>
+                                <h3 class=" text-xl mb-2" x-text="`${index + 1}. ${step.title}`"></h3>
                                 <p x-text="step.description"></p>
                             </div>
                         </template>
@@ -109,7 +109,7 @@
             </div>
 
             <div x-show="activeTab === 'order'" x-transition>
-                <h2 class="text-4xl font-display mb-8 text-center">Craft Your Custom Patch</h2>
+                <h2 class="text-4xl  mb-8 text-center">Craft Your Custom Patch</h2>
                 
                 <!-- Form Incomplete Message -->
                 <div x-show="Object.keys(errors).length > 0" 
@@ -129,7 +129,7 @@
                 <form @submit.prevent="validateAndSubmit" class="space-y-8">
                     <!-- Design Upload -->
                     <div class="mb-8">
-                        <h3 class="text-2xl font-display mb-4">1. Upload Your Design</h3>
+                        <h3 class="text-2xl  mb-4">1. Upload Your Design</h3>
                         <div class="flex items-center justify-center w-full">
                             <label for="design" class="flex flex-col items-center justify-center w-full h-64 border-2 border-primary border-dashed rounded-lg cursor-pointer bg-cream hover:bg-secondary hover:bg-opacity-10 transition duration-300 ease-in-out">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6" x-show="!designPreview">
@@ -149,7 +149,7 @@
 
                     <!-- Patch Size -->
                     <div class="mb-8" x-data="{ showCustomSize: false }">
-                        <h3 class="text-2xl font-display mb-4">2. Choose Your Patch Size</h3>
+                        <h3 class="text-2xl  mb-4">2. Choose Your Patch Size</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <template x-for="size in patchSizes" :key="size.value">
                                 <label :for="'size-' + size.value" class="cursor-pointer">
@@ -215,7 +215,7 @@
 
                     <!-- Quantity Selection -->
                     <div class="mb-8">
-                        <h3 class="text-2xl font-display mb-4">3. Select Quantity</h3>
+                        <h3 class="text-2xl  mb-4">3. Select Quantity</h3>
                         <div x-data="{ showCustom: false }" class="space-y-4">
                             <!-- Preset quantities -->
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -262,13 +262,13 @@
 
                     <!-- Special Instructions -->
                     <div class="mb-8">
-                        <h3 class="text-2xl font-display mb-4">4. Any Special Instructions?</h3>
+                        <h3 class="text-2xl  mb-4">4. Any Special Instructions?</h3>
                         <textarea x-model="orderDetails.notes" rows="4" class="w-full p-3 border-2 border-primary rounded-lg resize-none" placeholder="Tell us about any specific requirements or ideas you have for your patch..."></textarea>
                     </div>
 
                     <!-- Order Summary -->
                     <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
-                        <h3 class="text-2xl font-display mb-4">Order Summary</h3>
+                        <h3 class="text-2xl  mb-4">Order Summary</h3>
                         <ul class="space-y-2">
                             <li><strong>Size:</strong> <span x-text="getSizeLabel(orderDetails.size)"></span></li>
                             <li><strong>Quantity:</strong> <span x-text="orderDetails.quantity"></span></li>
@@ -286,7 +286,7 @@
         </div>
 
         <section class="retro-card p-8 text-center">
-            <h2 class="text-3xl font-display mb-4">Ready to Stitch Your Story?</h2>
+            <h2 class="text-3xl  mb-4">Ready to Stitch Your Story?</h2>
             <p class="mb-6">Let's create something amazing together! Our team is ready to bring your patch ideas to life.</p>
             <a href="#" @click.prevent="activeTab = 'order'" class="retro-button py-3 px-8 text-lg font-bold inline-block">Start Your Order</a>
         </section>
