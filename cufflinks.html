@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cufflinks | TextileCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50',
+                        secondary: '#E67E22',
+                        accent: '#E74C3C',
+                        cream: '#F5E6D3',
+                    },
+                    fontFamily: {
+                        display: ['Abril Fatface', 'cursive'],
+                        mono: ['Courier Prime', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime&display=swap');
+
+        [x-cloak] { display: none !important; }
+
+        .retro-bg {
+            background-color: #F5E6D3;
+        }
+
+        .sketch-border { border: 2px solid #2C3E50; box-shadow: 4px 4px 0 #2C3E50; }
+        .retro-card { background-color: #F5E6D3; border: 2px solid #2C3E50; box-shadow: 8px 8px 0 #2C3E50; }
+        .retro-button {
+            background-color: #E74C3C;
+            color: #F5E6D3;
+            border: 2px solid #2C3E50;
+            box-shadow: 4px 4px 0 #2C3E50;
+            transition: all 0.3s ease;
+        }
+        .retro-button:hover { box-shadow: 2px 2px 0 #2C3E50; transform: translate(2px, 2px); }
+    </style>
+</head>
+<body class="retro-bg font-mono text-primary">
+    <main class="container mx-auto px-4 py-12" x-data="accessoryApp()">
+        <h1 class="text-5xl mb-12 text-center text-primary">Cufflinks</h1>
+
+        <div class="retro-card p-8 mb-12">
+            <nav class="flex flex-wrap justify-center mb-8">
+                <button @click="activeTab = 'about'" :class="{ 'bg-secondary text-cream': activeTab === 'about' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">About</button>
+                <button @click="activeTab = 'gallery'" :class="{ 'bg-secondary text-cream': activeTab === 'gallery' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">Gallery</button>
+                <button @click="activeTab = 'order'" :class="{ 'bg-secondary text-cream': activeTab === 'order' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">Order Now</button>
+            </nav>
+
+            <div x-show="activeTab === 'about'" x-transition>
+                <section class="mb-12">
+                    <h2 class="text-3xl mb-6">What are Cufflinks?</h2>
+                    <div class="flex flex-col md:flex-row items-center">
+                        <p class="mb-6 md:mr-6 md:w-1/2">Cufflinks are decorative fasteners used to secure the cuffs of dress shirts. They add a touch of elegance and personalization to formal attire.</p>
+                        <img src="/path/to/cufflinks-example.jpg" alt="Example of cufflinks" class="rounded-lg sketch-border md:w-1/2">
+                    </div>
+                </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl mb-6">Benefits</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <template x-for="benefit in benefits" :key="benefit">
+                            <div class="flex items-center">
+                                <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span x-text="benefit"></span>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </div>
+
+            <div x-show="activeTab === 'gallery'" x-transition>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <template x-for="(image, index) in galleryImages" :key="index">
+                        <img :src="image.src" :alt="image.alt" @click="openLightbox(index)" class="rounded-lg sketch-border cursor-pointer">
+                    </template>
+                </div>
+                <div x-show="lightboxOpen" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" @click.self="closeLightbox">
+                    <div class="relative">
+                        <img :src="galleryImages[currentImage].src" :alt="galleryImages[currentImage].alt" class="max-w-full max-h-[80vh]">
+                        <button @click="prevImage" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-r">←</button>
+                        <button @click="nextImage" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-l">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="activeTab === 'order'" x-transition>
+                <h2 class="text-4xl mb-8 text-center">Order Your Custom Cufflinks</h2>
+                <form @submit.prevent="validateAndSubmit" class="space-y-8">
+                    <!-- Design Upload -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">1. Upload Your Design</h3>
+                        <div class="flex items-center justify-center w-full">
+                            <label for="design" class="flex flex-col items-center justify-center w-full h-64 border-2 border-primary border-dashed rounded-lg cursor-pointer bg-cream hover:bg-secondary hover:bg-opacity-10 transition duration-300 ease-in-out">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6" x-show="!designPreview">
+                                    <svg class="w-10 h-10 mb-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p class="mb-2 text-sm text-primary"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-primary">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <div x-show="designPreview" class="flex flex-col items-center">
+                                    <img :src="designPreview" alt="Design preview" class="max-w-full max-h-48 mb-4">
+                                    <p x-text="designFile.name" class="text-sm text-primary"></p>
+                                </div>
+                                <input id="design" type="file" class="hidden" @change="handleFileUpload" accept="image/*" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">2. Select Quantity</h3>
+                        <input type="number" x-model="orderDetails.quantity" min="1" class="w-full p-3 border-2 border-primary rounded-lg" placeholder="Enter quantity" />
+                    </div>
+
+                    <!-- Special Instructions -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">3. Any Special Instructions?</h3>
+                        <textarea x-model="orderDetails.notes" rows="4" class="w-full p-3 border-2 border-primary rounded-lg resize-none" placeholder="Tell us about any specific requirements or ideas you have for your cufflinks..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="retro-button py-3 px-8 text-xl font-bold">Place Your Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <section class="retro-card p-8 text-center">
+            <h2 class="text-3xl mb-4">Ready to Elevate Your Style?</h2>
+            <p class="mb-6">Let's create something unique together! Our team is ready to bring your cufflink ideas to life.</p>
+            <a href="#" @click.prevent="activeTab = 'order'" class="retro-button py-3 px-8 text-lg font-bold inline-block">Start Your Order</a>
+        </section>
+    </main>
+
+    <script>
+        function accessoryApp() {
+            return {
+                activeTab: 'about',
+                benefits: [
+                    'Stylish and elegant',
+                    'Customizable designs',
+                    'Perfect for gifts',
+                    'Durable materials'
+                ],
+                galleryImages: [
+                    { src: '/path/to/cufflink1.jpg', alt: 'Cufflink example 1' },
+                    { src: '/path/to/cufflink2.jpg', alt: 'Cufflink example 2' },
+                    { src: '/path/to/cufflink3.jpg', alt: 'Cufflink example 3' },
+                    { src: '/path/to/cufflink4.jpg', alt: 'Cufflink example 4' },
+                ],
+                lightboxOpen: false,
+                currentImage: 0,
+                orderDetails: {
+                    quantity: 1,
+                    notes: ''
+                },
+                designPreview: null,
+                designFile: null,
+                openLightbox(index) {
+                    this.currentImage = index;
+                    this.lightboxOpen = true;
+                },
+                closeLightbox() {
+                    this.lightboxOpen = false;
+                },
+                prevImage() {
+                    this.currentImage = (this.currentImage - 1 + this.galleryImages.length) % this.galleryImages.length;
+                },
+                nextImage() {
+                    this.currentImage = (this.currentImage + 1) % this.galleryImages.length;
+                },
+                handleFileUpload(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.designFile = file;
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.designPreview = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                validateAndSubmit() {
+                    this.errors = {};
+                    
+                    if (!this.designFile) {
+                        this.errors.design = "Please upload a design for your patch";
+                    }
+                    
+                    if (!this.orderDetails.size) {
+                        this.errors.size = "Please select a patch size";
+                    }
+                    
+                    if (!this.orderDetails.quantity || this.orderDetails.quantity < 1 || this.orderDetails.quantity > 10000) {
+                        this.errors.quantity = "Please enter a valid quantity (1-10000)";
+                    }
+                    
+                    if (Object.keys(this.errors).length === 0) {
+                        this.submitOrder();
+                    } else {
+                        // Scroll to the top of the form to show the error message
+                        document.querySelector('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Labels | TextileCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50',
+                        secondary: '#E67E22',
+                        accent: '#E74C3C',
+                        cream: '#F5E6D3',
+                    },
+                    fontFamily: {
+                        display: ['Abril Fatface', 'cursive'],
+                        mono: ['Courier Prime', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime&display=swap');
+
+        [x-cloak] { display: none !important; }
+
+        .retro-bg {
+            background-color: #F5E6D3;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e67e22' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .sketch-border { border: 2px solid #2C3E50; box-shadow: 4px 4px 0 #2C3E50; }
+        .retro-card { background-color: #F5E6D3; border: 2px solid #2C3E50; box-shadow: 8px 8px 0 #2C3E50; }
+        .retro-button {
+            background-color: #E74C3C;
+            color: #F5E6D3;
+            border: 2px solid #2C3E50;
+            box-shadow: 4px 4px 0 #2C3E50;
+            transition: all 0.3s ease;
+        }
+        .retro-button:hover { box-shadow: 2px 2px 0 #2C3E50; transform: translate(2px, 2px); }
+    </style>
+</head>
+<body class="retro-bg font-mono text-primary">
+    <main class="container mx-auto px-4 py-12" x-data="patchesApp()">
+        <h1 class="text-5xl mb-12 text-center text-primary">Paper Labels</h1>
+
+        <div class="retro-card p-8 mb-12">
+            <nav class="flex flex-wrap justify-center mb-8">
+                <button @click="activeTab = 'about'" :class="{ 'bg-secondary text-cream': activeTab === 'about' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">About</button>
+                <button @click="activeTab = 'gallery'" :class="{ 'bg-secondary text-cream': activeTab === 'gallery' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">Gallery</button>
+                <button @click="activeTab = 'order'" :class="{ 'bg-secondary text-cream': activeTab === 'order' }" class="retro-button m-2 py-2 px-6 text-lg font-bold">Order Now</button>
+            </nav>
+
+            <div x-show="activeTab === 'about'" x-transition>
+                <section class="mb-12">
+                    <h2 class="text-3xl mb-6">What are Paper Labels?</h2>
+                    <div class="flex flex-col md:flex-row items-center">
+                        <p class="mb-6 md:mr-6 md:w-1/2">Paper labels are versatile and cost-effective solutions for branding and product identification. They can be printed in various colors and finishes, making them ideal for a wide range of applications!</p>
+                        <img src="/path/to/paper-label-example.jpg" alt="Example of a paper label" class="rounded-lg sketch-border md:w-1/2">
+                    </div>
+                </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl mb-6">Benefits</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <template x-for="benefit in benefits" :key="benefit">
+                            <div class="flex items-center">
+                                <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span x-text="benefit"></span>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl mb-6">The Printing Process</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <template x-for="(step, index) in process" :key="index">
+                            <div class="retro-card p-4">
+                                <h3 class="text-xl mb-2" x-text="`${index + 1}. ${step.title}`"></h3>
+                                <p x-text="step.description"></p>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </div>
+
+            <div x-show="activeTab === 'gallery'" x-transition>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <template x-for="(image, index) in galleryImages" :key="index">
+                        <img :src="image.src" :alt="image.alt" @click="openLightbox(index)" class="rounded-lg sketch-border cursor-pointer">
+                    </template>
+                </div>
+                <div x-show="lightboxOpen" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" @click.self="closeLightbox">
+                    <div class="relative">
+                        <img :src="galleryImages[currentImage].src" :alt="galleryImages[currentImage].alt" class="max-w-full max-h-[80vh]">
+                        <button @click="prevImage" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-r">←</button>
+                        <button @click="nextImage" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-l">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="activeTab === 'order'" x-transition>
+                <h2 class="text-4xl mb-8 text-center">Order Your Custom Paper Labels</h2>
+                <!-- Form Incomplete Message -->
+                <div x-show="Object.keys(errors).length > 0" 
+                     class="bg-accent text-white p-4 rounded-lg mb-6"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform -translate-y-2"
+                     x-transition:enter-end="opacity-100 transform translate-y-0">
+                    <h3 class="text-xl font-bold mb-2">Oops! Your order form is incomplete</h3>
+                    <p>Please address the following to complete your order:</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <template x-for="(error, field) in errors" :key="field">
+                            <li x-text="error"></li>
+                        </template>
+                    </ul>
+                </div>
+
+                <form @submit.prevent="validateAndSubmit" class="space-y-8">
+                    <!-- Design Upload -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">1. Upload Your Design</h3>
+                        <div class="flex items-center justify-center w-full">
+                            <label for="design" class="flex flex-col items-center justify-center w-full h-64 border-2 border-primary border-dashed rounded-lg cursor-pointer bg-cream hover:bg-secondary hover:bg-opacity-10 transition duration-300 ease-in-out">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6" x-show="!designPreview">
+                                    <svg class="w-10 h-10 mb-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p class="mb-2 text-sm text-primary"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-primary">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <div x-show="designPreview" class="flex flex-col items-center">
+                                    <img :src="designPreview" alt="Design preview" class="max-w-full max-h-48 mb-4">
+                                    <p x-text="designFile.name" class="text-sm text-primary"></p>
+                                </div>
+                                <input id="design" type="file" class="hidden" @change="handleFileUpload" accept="image/*" />
+                            </label>
+                        </div>
+                        <p x-show="errors.design" class="text-accent mt-2" x-text="errors.design"></p>
+                    </div>
+
+                    <!-- Patch Size -->
+                    <div class="mb-8" x-data="{ showCustomSize: false }">
+                        <h3 class="text-2xl mb-4">2. Choose Your Label Size</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <template x-for="size in patchSizes" :key="size.value">
+                                <label :for="'size-' + size.value" class="cursor-pointer">
+                                    <input type="radio" 
+                                           :id="'size-' + size.value" 
+                                           name="size" 
+                                           :value="size.value" 
+                                           x-model="orderDetails.size" 
+                                           @change="showCustomSize = (size.value === 'custom')"
+                                           class="hidden peer">
+                                    <div class="flex flex-col items-center p-4 border-2 border-primary rounded-lg peer-checked:bg-secondary peer-checked:text-white transition duration-300 ease-in-out">
+                                        <span x-text="size.label" class="text-lg font-bold mb-2"></span>
+                                        <span x-text="size.dimensions" class="text-sm"></span>
+                                    </div>
+                                </label>
+                            </template>
+                        </div>
+
+                        <!-- Custom Size Options -->
+                        <div x-show="showCustomSize" x-transition class="mt-4 p-4 border-2 border-primary rounded-lg">
+                            <h4 class="text-xl font-bold mb-3">Specify Your Custom Size</h4>
+                            <div class="flex flex-wrap items-center gap-4">
+                                <div class="flex items-center">
+                                    <label for="custom-width" class="mr-2">Width:</label>
+                                    <input type="number" 
+                                           id="custom-width" 
+                                           x-model="orderDetails.customSize.width" 
+                                           min="1" 
+                                           max="12" 
+                                           step="0.5" 
+                                           class="w-20 p-2 border-2 border-primary rounded-lg">
+                                    <span class="ml-1">inches</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <label for="custom-height" class="mr-2">Height:</label>
+                                    <input type="number" 
+                                           id="custom-height" 
+                                           x-model="orderDetails.customSize.height" 
+                                           min="1" 
+                                           max="12" 
+                                           step="0.5" 
+                                           class="w-20 p-2 border-2 border-primary rounded-lg">
+                                    <span class="ml-1">inches</span>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-sm text-gray-600">
+                                Note: Custom sizes may affect pricing. We'll confirm the final price after reviewing your design.
+                            </p>
+                        </div>
+                        <p x-show="errors.size" class="text-accent mt-2" x-text="errors.size"></p>
+                    </div>
+
+                    <!-- Quantity Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">3. Select Quantity</h3>
+                        <div x-data="{ showCustom: false }" class="space-y-4">
+                            <!-- Preset quantities -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <template x-for="qty in [10, 50, 100, 500]">
+                                    <button type="button"
+                                        @click="orderDetails.quantity = qty; showCustom = false"
+                                        :class="{'bg-secondary text-white': orderDetails.quantity === qty && !showCustom}"
+                                        class="retro-button py-2 px-4 text-lg font-bold transition duration-300">
+                                        <span x-text="qty"></span>
+                                    </button>
+                                </template>
+                            </div>
+                            
+                            <!-- Custom quantity input -->
+                            <div class="flex items-center justify-center space-x-4">
+                                <button type="button"
+                                    @click="showCustom = true; $nextTick(() => $refs.customQty.focus())"
+                                    :class="{'bg-secondary text-white': showCustom}"
+                                    class="retro-button py-2 px-4 text-lg font-bold transition duration-300">
+                                    Custom
+                                </button>
+                                <div x-show="showCustom" class="flex items-center space-x-2">
+                                    <input type="number"
+                                        x-ref="customQty"
+                                        x-model.number="orderDetails.quantity"
+                                        @input="checkBulkOrder()"
+                                        min="1"
+                                        placeholder="Enter quantity"
+                                        class="w-40 p-2 text-lg font-bold text-center border-2 border-primary rounded-lg">
+                                    <span class="text-lg font-bold">labels</span>
+                                </div>
+                            </div>
+                        </div>     
+                        <div x-show="orderDetails.quantity >= 1000" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 transform scale-90"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             class="mt-4 p-4 bg-secondary bg-opacity-20 rounded-lg">
+                            <p class="text-lg font-bold">Bulk Order Bonus! 🎉</p>
+                            <p>Your order of <span x-text="orderDetails.quantity"></span> labels qualifies for a <span class="font-bold">10% discount</span> and priority processing!</p>
+                        </div>
+                        <p x-show="errors.quantity" class="text-accent mt-2" x-text="errors.quantity"></p>
+                    </div>
+
+                    <!-- Special Instructions -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl mb-4">4. Any Special Instructions?</h3>
+                        <textarea x-model="orderDetails.notes" rows="4" class="w-full p-3 border-2 border-primary rounded-lg resize-none" placeholder="Tell us about any specific requirements or ideas you have for your labels..."></textarea>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl mb-4">Order Summary</h3>
+                        <ul class="space-y-2">
+                            <li><strong>Size:</strong> <span x-text="getSizeLabel(orderDetails.size)"></span></li>
+                            <li><strong>Quantity:</strong> <span x-text="orderDetails.quantity"></span></li>
+                            <li><strong>Estimated Price:</strong> <span x-text="'$' + calculatePrice()"></span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="retro-button py-3 px-8 text-xl font-bold">Place Your Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <section class="retro-card p-8 text-center">
+            <h2 class="text-3xl mb-4">Ready to Create Your Labels?</h2>
+            <p class="mb-6">Let's bring your label ideas to life! Our team is ready to assist you with your custom labels.</p>
+            <a href="#" @click.prevent="activeTab = 'order'" class="retro-button py-3 px-8 text-lg font-bold inline-block">Start Your Order</a>
+        </section>
+    </main>
+
+    <script>
+        function patchesApp() {
+            return {
+                activeTab: 'about',
+                benefits: [
+                    'Cost-effective and versatile',
+                    'High-quality printing options',
+                    'Customizable sizes and shapes',
+                    'Ideal for branding and product identification'
+                ],
+                process: [
+                    { title: 'Design', description: 'Submit your design and we will prepare it for printing.' },
+                    { title: 'Print', description: 'We use high-quality inks to ensure vibrant colors and durability.' },
+                    { title: 'Finish', description: 'Your labels are cut, packaged, and ready to ship!' }
+                ],
+                galleryImages: [
+                    { src: '/path/to/paper-label1.jpg', alt: 'Paper label example 1' },
+                    { src: '/path/to/paper-label2.jpg', alt: 'Paper label example 2' },
+                    { src: '/path/to/paper-label3.jpg', alt: 'Paper label example 3' },
+                    { src: '/path/to/paper-label4.jpg', alt: 'Paper label example 4' },
+                ],
+                lightboxOpen: false,
+                currentImage: 0,
+                patchSizes: [
+                    { value: 'small', label: 'Small', dimensions: '2" x 2"' },
+                    { value: 'medium', label: 'Medium', dimensions: '3" x 3"' },
+                    { value: 'large', label: 'Large', dimensions: '4" x 4"' },
+                    { value: 'custom', label: 'Custom', dimensions: 'Your size' }
+                ],
+                orderDetails: {
+                    size: 'medium',
+                    quantity: 50, // Default to a common quantity
+                    notes: ''
+                },
+                designPreview: null,
+                designFile: null,
+                openLightbox(index) {
+                    this.currentImage = index;
+                    this.lightboxOpen = true;
+                },
+                closeLightbox() {
+                    this.lightboxOpen = false;
+                },
+                prevImage() {
+                    this.currentImage = (this.currentImage - 1 + this.galleryImages.length) % this.galleryImages.length;
+                },
+                nextImage() {
+                    this.currentImage = (this.currentImage + 1) % this.galleryImages.length;
+                },
+                handleFileUpload(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.designFile = file;
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.designPreview = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                decrementQuantity() {
+                    if (this.orderDetails.quantity > 1) {
+                        this.orderDetails.quantity--;
+                    }
+                },
+                incrementQuantity() {
+                    if (this.orderDetails.quantity < 1000) {
+                        this.orderDetails.quantity++;
+                    }
+                },
+                getSizeLabel(value) {
+                    const size = this.patchSizes.find(s => s.value === value);
+                    return size ? `${size.label} (${size.dimensions})` : 'Unknown';
+                },
+                calculatePrice() {
+                    const basePrice = 5;
+                    const sizeMultiplier = { small: 1, medium: 1.5, large: 2, custom: 2.5 };
+                    let total = basePrice * sizeMultiplier[this.orderDetails.size] * this.orderDetails.quantity;
+                    
+                    // Apply bulk discount
+                    if (this.orderDetails.quantity >= 1000) {
+                        total *= 0.9; // 10% discount
+                    }
+                    
+                    return total.toFixed(2);
+                },
+                checkBulkOrder() {
+                    this.orderDetails.quantity = Math.max(1, this.orderDetails.quantity);
+                },
+                submitOrder() {
+                    console.log('Order submitted:', this.orderDetails);
+                    console.log('Design file:', this.designFile);
+                    alert('Thank you for your order! We\'ll be in touch soon.');
+                    this.orderDetails = { size: 'medium', quantity: 50, notes: '' };
+                    this.designPreview = null;
+                    this.designFile = null;
+                },
+                errors: {},
+                validateAndSubmit() {
+                    this.errors = {};
+                    
+                    if (!this.designFile) {
+                        this.errors.design = "Please upload a design for your label";
+                    }
+                    
+                    if (!this.orderDetails.size) {
+                        this.errors.size = "Please select a label size";
+                    }
+                    
+                    if (!this.orderDetails.quantity || this.orderDetails.quantity < 1 || this.orderDetails.quantity > 10000) {
+                        this.errors.quantity = "Please enter a valid quantity (1-10000)";
+                    }
+                    
+                    if (Object.keys(this.errors).length === 0) {
+                        this.submitOrder();
+                    } else {
+                        document.querySelector('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                },
+            }
+        }
+    </script>
+</body>
+</html>

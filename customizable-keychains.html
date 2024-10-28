@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Keychains - TextileCraft</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50',
+                        secondary: '#E67E22',
+                        accent: '#E74C3C',
+                        cream: '#F5E6D3',
+                    },
+                    fontFamily: {
+                        display: ['Abril Fatface', 'cursive'],
+                        mono: ['Courier Prime', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+   
+</head>
+
+<body class="retro-bg font-mono text-primary">
+    <main class="pt-20">
+        <section class="bg-primary text-cream py-24 px-4 relative overflow-hidden sketch-border">
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Customizable Keychains</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl">Keep your brand close at hand with our unique customizable keychains. Perfect for promotions and gifts.</p>
+                <a href="#design-now" class="retro-button inline-block px-8 py-4 rounded-full text-lg font-bold hover:bg-accent">Start Designing</a>
+            </div>
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-secondary opacity-10 transform -skew-x-12"></div>
+        </section>
+
+        <!-- Keychain Types -->
+        <section class="py-24 px-4" x-data="{ activeType: 'acrylic' }">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-primary text-center">Keychain Types</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <button @click="activeType = 'acrylic'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'acrylic', 'bg-cream text-primary': activeType !== 'acrylic' }">
+                        <h3 class="text-2xl font-bold mb-2">Acrylic Keychains</h3>
+                        <p class="text-sm">Durable and vibrant</p>
+                    </button>
+                    <button @click="activeType = 'metal'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'metal', 'bg-cream text-primary': activeType !== 'metal' }">
+                        <h3 class="text-2xl font-bold mb-2">Metal Keychains</h3>
+                        <p class="text-sm">Sleek and professional</p>
+                    </button>
+                    <button @click="activeType = 'wood'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'wood', 'bg-cream text-primary': activeType !== 'wood' }">
+                        <h3 class="text-2xl font-bold mb-2">Wooden Keychains</h3>
+                        <p class="text-sm">Eco-friendly and unique</p>
+                    </button>
+                </div>
+                <div class="retro-card p-8 rounded-lg" x-show="activeType" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100">
+                    <div x-show="activeType === 'acrylic'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Acrylic Keychains</h3>
+                        <p class="mb-4">Our acrylic keychains are vibrant and durable, perfect for showcasing your brand.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Available in various shapes and sizes</li>
+                            <li>Lightweight and easy to carry</li>
+                            <li>Custom printing options available</li>
+                        </ul>
+                    </div>
+                    <div x-show="activeType === 'metal'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Metal Keychains</h3>
+                        <p class="mb-4">Metal keychains offer a sleek and professional look, ideal for corporate gifts.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Durable and long-lasting</li>
+                            <li>Custom engraving options available</li>
+                            <li>Perfect for branding and promotions</li>
+                        </ul>
+                    </div>
+                    <div x-show="activeType === 'wood'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Wooden Keychains</h3>
+                        <p class="mb-4">Wooden keychains provide a unique and eco-friendly option for your branding needs.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Natural look and feel</li>
+                            <li>Custom shapes and engravings available</li>
+                            <li>Great for eco-conscious brands</li>
+                        </ul>
+                    </div>
+                    <a :href="'/keychain-types/' + activeType" class="inline-block px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-accent transition-colors duration-300 retro-button">Learn More About <span x-text="activeType.charAt(0).toUpperCase() + activeType.slice(1)"></span> Keychains</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Process -->
+        <section class="py-24 px-4 bg-cream sketch-border">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-5xl md:text-6xl font-bold mb-16 text-primary text-center">Our Customization Process</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">1</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Submit Your Design</h3>
+                        <p class="text-center">Upload your artwork or describe your idea. Our team will review and provide feedback.</p>
+                    </div>
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">2</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Receive a Mockup</h3>
+                        <p class="text-center">We'll create a digital mockup of your keychain for your approval before production.</p>
+                    </div>
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">3</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Production & Delivery</h3>
+                        <p class="text-center">Once approved, we'll produce your keychains and ship them directly to you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section id="design-now" class="py-24 px-4 bg-primary text-cream sketch-border">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Create Your Custom Keychain?</h2>
+                <p class="text-xl mb-8">Let's bring your vision to life. Start your design process now!</p>
+                <a href="#" class="retro-button inline-block px-8 py-4 rounded-full text-lg font-bold hover:bg-accent">Begin Your Design</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

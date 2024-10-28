@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime&display=swap');
+[x-cloak] { display: none !important; }
+.retro-bg {
+    background-color: #F5E6D3;
+}
+.sketch-border {
+    border: 2px solid #2C3E50;
+    box-shadow: 4px 4px 0 #2C3E50;
+}
+.retro-card {
+    background-color: #F5E6D3;
+    border: 2px solid #2C3E50;
+    box-shadow: 8px 8px 0 #2C3E50;
+    transition: all 0.3s ease;
+}
+.retro-button {
+    background-color: #E74C3C;
+    color: #F5E6D3;
+    border: 2px solid #2C3E50;
+    box-shadow: 4px 4px 0 #2C3E50;
+    transition: all 0.3s ease;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Labels - TextileCraft</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50',
+                        secondary: '#E67E22',
+                        accent: '#E74C3C',
+                        cream: '#F5E6D3',
+                    },
+                    fontFamily: {
+                        display: ['Abril Fatface', 'cursive'],
+                        mono: ['Courier Prime', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+</head>
+
+<body class="retro-bg font-mono text-primary">
+    <main class="pt-20">
+        <section class="bg-primary text-cream py-24 px-4 relative overflow-hidden sketch-border">
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Custom Labels</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl">Enhance your products with our high-quality custom labels. Perfect for branding, packaging, and more.</p>
+                <a href="#design-now" class="retro-button inline-block px-8 py-4 rounded-full text-lg font-bold hover:bg-accent">Start Designing</a>
+            </div>
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-secondary opacity-10 transform -skew-x-12"></div>
+        </section>
+
+        <!-- Label Types -->
+        <section class="py-24 px-4" x-data="{ activeType: 'paper' }">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-12 text-primary text-center">Label Types</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <button @click="activeType = 'paper'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'paper', 'bg-cream text-primary': activeType !== 'paper' }">
+                        <h3 class="text-2xl font-bold mb-2">Paper Labels</h3>
+                        <p class="text-sm">Cost-effective and versatile</p>
+                    </button>
+                    <button @click="activeType = 'vinyl'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'vinyl', 'bg-cream text-primary': activeType !== 'vinyl' }">
+                        <h3 class="text-2xl font-bold mb-2">Vinyl Labels</h3>
+                        <p class="text-sm">Durable and weather-resistant</p>
+                    </button>
+                    <button @click="activeType = 'transparent'" class="p-6 rounded-lg retro-card transition-all duration-300" :class="{ 'bg-primary text-cream': activeType === 'transparent', 'bg-cream text-primary': activeType !== 'transparent' }">
+                        <h3 class="text-2xl font-bold mb-2">Transparent Labels</h3>
+                        <p class="text-sm">Sleek and modern look</p>
+                    </button>
+                </div>
+                <div class="retro-card p-8 rounded-lg" x-show="activeType" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100">
+                    <div x-show="activeType === 'paper'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Paper Labels</h3>
+                        <p class="mb-4">Our paper labels are perfect for a variety of applications, offering a cost-effective solution for your labeling needs.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Available in various finishes</li>
+                            <li>Ideal for indoor use</li>
+                            <li>Custom sizes and shapes available</li>
+                        </ul>
+                    </div>
+                    <div x-show="activeType === 'vinyl'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Vinyl Labels</h3>
+                        <p class="mb-4">Vinyl labels are durable and weather-resistant, making them perfect for outdoor use and long-lasting applications.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Waterproof and UV resistant</li>
+                            <li>Great for products exposed to the elements</li>
+                            <li>Custom shapes and sizes available</li>
+                        </ul>
+                    </div>
+                    <div x-show="activeType === 'transparent'">
+                        <h3 class="text-3xl font-bold mb-4 text-primary">Transparent Labels</h3>
+                        <p class="mb-4">Transparent labels provide a sleek and modern look, perfect for high-end products and packaging.</p>
+                        <ul class="list-disc list-inside mb-6">
+                            <li>Invisible background for a clean look</li>
+                            <li>Ideal for glass and clear containers</li>
+                            <li>Custom sizes and shapes available</li>
+                        </ul>
+                    </div>
+                    <a :href="'/label-types/' + activeType" class="inline-block px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-accent transition-colors duration-300 retro-button">Learn More About <span x-text="activeType.charAt(0).toUpperCase() + activeType.slice(1)"></span> Labels</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Process -->
+        <section class="py-24 px-4 bg-cream sketch-border">
+            <div class="container mx-auto max-w-6xl">
+                <h2 class="text-5xl md:text-6xl font-bold mb-16 text-primary text-center">Our Customization Process</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">1</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Submit Your Design</h3>
+                        <p class="text-center">Upload your artwork or describe your idea. Our team will review and provide feedback.</p>
+                    </div>
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">2</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Receive a Mockup</h3>
+                        <p class="text-center">We'll create a digital mockup of your label for your approval before production.</p>
+                    </div>
+                    <div class="retro-card p-6 rounded-lg">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-4 sketch-border mx-auto">3</div>
+                        <h3 class="text-2xl font-bold mb-2 text-primary text-center">Production & Delivery</h3>
+                        <p class="text-center">Once approved, we'll produce your labels and ship them directly to you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section id="design-now" class="py-24 px-4 bg-primary text-cream sketch-border">
+            <div class="container mx-auto max-w-6xl text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Create Your Custom Label?</h2>
+                <p class="text-xl mb-8">Let's bring your vision to life. Start your design process now!</p>
+                <a href="#" class="retro-button inline-block px-8 py-4 rounded-full text-lg font-bold hover:bg-accent">Begin Your Design</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
